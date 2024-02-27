@@ -14,6 +14,4 @@ class Equipo(db.Model):
             nombre: nombre del equipo
         """
         self.dir = dir
-        self.nombre = nombre
-        
-    
+        self.nombre = nombre    

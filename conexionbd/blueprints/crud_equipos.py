@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from models.equipoM import Equipo
 from schemas.equipoS import EquipoEsquema
 from main import db
+import os
 
 
 crud_equipos = Blueprint('crud_equipos',__name__)
@@ -72,4 +73,15 @@ def obtener_equipo():
     equipo = Equipo.query.get(direccion)      
     return esquema_equipo.jsonify(equipo)
 
-
+@crud_equipos.route('/probar-latencia', methods=['GET'])
+def probar_latencia():
+    '''
+    Obtiene la información de un equipo mediante su dirección ip
+    Regresa un json vacío si el equipo no está en el sistema
+    '''   
+    direccion = request.json['dir']
+    response = os.system("ping -c 1 " + direccion)         
+    if response == 0:
+        return jsonify({'msg':'success'})
+    else:
+        return jsonify({'msg':'error'})

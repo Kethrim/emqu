@@ -6,7 +6,8 @@ import os
 
 
 crud_equipos = Blueprint('crud_equipos',__name__)
-esquema_equipo = EquipoEsquema(many=True)
+esquema_equipos = EquipoEsquema(many=True)
+esquema_equipo = EquipoEsquema()
 
 
 @crud_equipos.route('/registrar-equipo', methods=['POST'])
@@ -60,20 +61,19 @@ def obtener_equipos():
     Obtiene todos los equipos registrados    
     '''       
     equipos = Equipo.query.all()
-    return esquema_equipo.jsonify(equipos)
+    return esquema_equipos.jsonify(equipos)
 
 
-@crud_equipos.route('/obtener-equipo', methods=['GET'])
-def obtener_equipo():
+@crud_equipos.route('/obtener-equipo/<dir>', methods=['GET'])
+def obtener_equipo(dir):
     '''
     Obtiene la información de un equipo mediante su dirección ip
     Regresa un json vacío si el equipo no está en el sistema
-    '''   
-    direccion = request.json['dir']
-    equipo = Equipo.query.get(direccion)      
+    '''
+    equipo = Equipo.query.get(dir)      
     return esquema_equipo.jsonify(equipo)
 
-@crud_equipos.route('/probar-latencia', methods=['GET'])
+@crud_equipos.route('/probar-latencia', methods=['POST'])
 def probar_latencia():
     '''
     Obtiene la información de un equipo mediante su dirección ip

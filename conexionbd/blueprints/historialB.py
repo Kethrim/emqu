@@ -23,14 +23,12 @@ def agregar_registro():
     except:
         return jsonify({'msg':'error'})    
 
-@historial.route('/obtener-registros-ip', methods=['GET'])
-def obtener_registros_ip():
+@historial.route('/obtener-registros-ip/<ip>', methods=['GET'])
+def obtener_registros_ip(ip):
     '''
     Obtiene todos los registros dada una ip
-    '''
-    ip_origen = request.json['ip']   
-    registros = db.session.query(Historial).filter_by(ip=ip_origen).all()
-     
+    '''  
+    registros = db.session.query(Historial).filter_by(ip).all()     
     return historial_esquema.jsonify(registros)
 
 

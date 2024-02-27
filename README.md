@@ -85,4 +85,4 @@ Situarse en la carpeta sistema-latencia y ejecutar
     npm install
     ng s
 
-
+Ambos servidores deben estar corriendo para que el proyecto se ejecute correctamente

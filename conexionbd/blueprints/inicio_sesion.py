@@ -29,7 +29,11 @@ def iniciar_sesion():
     correo = request.json['correo']
     contrasenia = request.json['contra']    
     usuario = Usuario.query.get(correo)
+    # print(jsonify(usuario))
     if (usuario is not None):
+        print(usuario.correo)
+        print(usuario.contrasenia)
+        print(usuario._encriptarContra(contrasenia))
         if(usuario.correo == correo and usuario.verificarContra(contrasenia)):
             return jsonify({'msg':'success'})    
     
